@@ -4,7 +4,7 @@
   const web=document.getElementById('web'),shadow=document.getElementById('web-shadow'),main=document.getElementById('web-main'),fine=document.getElementById('web-fine'),cross=document.getElementById('web-cross');
   const motion=document.getElementById('motion'),icon=document.getElementById('motion-icon');
   const media=matchMedia('(prefers-reduced-motion: reduce)'),finePointer=matchMedia('(pointer:fine)');
-  let ready=false,paused=false,visible=true,frame=0,last=0,elapsed=0,px=0,py=0,tx=0,ty=0,rect,layout;
+  let ready=false,paused=false,visible=true,frame=0,last=0,elapsed=0,px=0,py=0,tx=0,ty=0,rect,layout,scrollLeap=0;
   function resize(){
     rect=hero.getBoundingClientRect();const W=rect.width,H=rect.height,portrait=W/H<=1.2;
     const w=portrait?Math.min(W*.86,H*.49*1.5):Math.min(W*.59,H*.78*1.5),h=w/1.5;
@@ -17,8 +17,12 @@
     const t=elapsed/1000,still=paused||media.matches,entry=media.matches?1:Math.min(t/1.8,1),ease=1-Math.pow(1-entry,3);
     const sway=still?0:Math.sin(t*.9),breath=still?0:Math.sin(t*1.4);
     // Side entrance intentionally begins offscreen; the settled pose retains fullscreen margins.
-    const x=(1-ease)*rect.width*.75+sway*5+px,y=(1-ease)*-rect.height*.2+Math.sin(entry*Math.PI)*rect.height*.09+breath*5+py,rotation=(1-ease)*-18+sway*.85;
+    const leapY=scrollLeap*rect.height*0.8,leapX=-scrollLeap*rect.width*0.12,leapRot=scrollLeap*20;
+    const alpha=Math.max(0,1-scrollLeap*1.5);
+    const x=(1-ease)*rect.width*.75+sway*5+px+leapX,y=(1-ease)*-rect.height*.2+Math.sin(entry*Math.PI)*rect.height*.09+breath*5+py+leapY,rotation=(1-ease)*-18+sway*.85+leapRot;
     person.style.transform=`translate(${x}px,${y}px) rotate(${rotation}deg)`;
+    person.style.opacity=alpha;
+    web.style.opacity=alpha;
     const {w,h}=layout,ox=.85*w,oy=.29*h,a=rotation*Math.PI/180;
     // Web starts at the underside of the wrist, not the knuckles or fingertips.
     const hx=.865*w-ox,hy=.325*h-oy;
@@ -36,7 +40,11 @@
   hero.addEventListener('pointermove',e=>{if(!finePointer.matches||paused||media.matches)return;tx=((e.clientX-rect.left)/rect.width-.5)*8;ty=((e.clientY-rect.top)/rect.height-.5)*6;},{passive:true});
   hero.addEventListener('pointerleave',()=>{tx=ty=0;});motion.addEventListener('click',()=>{paused=!paused;sync();});
   media.addEventListener('change',sync);document.addEventListener('visibilitychange',sync);new ResizeObserver(resize).observe(hero);
-  window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==parent||e.data?.type!=='hero-visibility')return;visible=Boolean(e.data.visible);sync();});
+  window.addEventListener('message',e=>{
+    if(e.origin!==location.origin||e.source!==parent)return;
+    if(e.data?.type==='hero-visibility'){visible=Boolean(e.data.visible);sync();}
+    if(e.data?.type==='hero-scroll'){scrollLeap=Math.max(0,Math.min(e.data.scrollY/350,1));draw();}
+  });
   if(media.matches)elapsed=2000;
   resize();sync();
   const character=person.querySelector('img');
