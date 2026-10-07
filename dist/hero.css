@@ -3,3 +3,4 @@
 @media(max-aspect-ratio:6/5){.city{background-position:60% bottom;background-size:auto 100%}.tagline{top:10%;left:10%;width:80%;transform:rotate(-6deg) skew(-6deg)}.friendly{font-size:min(8.5vw,6.4vh)}.neighborhood{font-size:min(9vw,6.8vh)}.it-guy{font-size:min(24vw,18vh);-webkit-text-stroke:1.5px #121e36;text-shadow:3px 3px 0 #fff9e9,6px 6px 0 #142643,8px 8px 0 #1766cd}.motion{bottom:14px;right:14px}}
 @media(max-height:400px) and (min-aspect-ratio:6/5){.tagline{top:14%}.motion{width:28px;height:28px;bottom:10px;right:12px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+

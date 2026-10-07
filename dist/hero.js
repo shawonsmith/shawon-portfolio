@@ -4,6 +4,7 @@
   const web=document.getElementById('web'),shadow=document.getElementById('web-shadow'),main=document.getElementById('web-main'),fine=document.getElementById('web-fine'),cross=document.getElementById('web-cross');
   const motion=document.getElementById('motion'),icon=document.getElementById('motion-icon');
   const media=matchMedia('(prefers-reduced-motion: reduce)'),finePointer=matchMedia('(pointer:fine)');
+  let transferred=false,currentPose=null;
   let ready=false,paused=false,visible=true,frame=0,last=0,elapsed=0,px=0,py=0,tx=0,ty=0,rect,layout;
   function resize(){
     rect=hero.getBoundingClientRect();const W=rect.width,H=rect.height,portrait=W/H<=1.2;
@@ -18,6 +19,7 @@
     const sway=still?0:Math.sin(t*.9),breath=still?0:Math.sin(t*1.4);
     // Side entrance intentionally begins offscreen; the settled pose retains fullscreen margins.
     const x=(1-ease)*rect.width*.75+sway*5+px,y=(1-ease)*-rect.height*.2+Math.sin(entry*Math.PI)*rect.height*.09+breath*5+py,rotation=(1-ease)*-18+sway*.85;
+    currentPose={x:layout.x+x,y:layout.y+y,w:layout.w,h:layout.h,rotation,src:person.querySelector("img").src};
     person.style.transform=`translate(${x}px,${y}px) rotate(${rotation}deg)`;
     const {w,h}=layout,ox=.85*w,oy=.29*h,a=rotation*Math.PI/180;
     // Web starts at the underside of the wrist, not the knuckles or fingertips.
@@ -32,15 +34,35 @@
     city.style.transform=`translate(${-px*.3}px,${-py*.25}px) scale(1.015)`;
   }
   function tick(now){if(!last)last=now;const dt=Math.min(now-last,40);last=now;elapsed+=dt;px+=(tx-px)*.07;py+=(ty-py)*.07;draw();frame=requestAnimationFrame(tick);}
-  function sync(){cancelAnimationFrame(frame);frame=0;last=0;const active=ready&&!paused&&!media.matches&&visible&&!document.hidden;if(active)frame=requestAnimationFrame(tick);else{px=py=tx=ty=0;draw();}motion.hidden=media.matches;motion.setAttribute('aria-label',paused?'Resume animation':'Pause animation');motion.setAttribute('aria-pressed',String(paused));icon.setAttribute('d',paused?'M8 5L19 12L8 19Z':'M8 5V19M16 5V19');}
+  function sync(){cancelAnimationFrame(frame);frame=0;last=0;const active=ready&&!transferred&&!paused&&!media.matches&&visible&&!document.hidden;if(active)frame=requestAnimationFrame(tick);else if(!transferred){px=py=tx=ty=0;draw();}motion.hidden=media.matches;motion.setAttribute('aria-label',paused?'Resume animation':'Pause animation');motion.setAttribute('aria-pressed',String(paused));icon.setAttribute('d',paused?'M8 5L19 12L8 19Z':'M8 5V19M16 5V19');}
   hero.addEventListener('pointermove',e=>{if(!finePointer.matches||paused||media.matches)return;tx=((e.clientX-rect.left)/rect.width-.5)*8;ty=((e.clientY-rect.top)/rect.height-.5)*6;},{passive:true});
-  hero.addEventListener('pointerleave',()=>{tx=ty=0;});motion.addEventListener('click',()=>{paused=!paused;sync();});
+  hero.addEventListener('pointerleave',()=>{tx=ty=0;});motion.addEventListener('click',()=>{paused=!paused;sync();notifyParent("shawon-motion-change");});
   media.addEventListener('change',sync);document.addEventListener('visibilitychange',sync);new ResizeObserver(resize).observe(hero);
   window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==parent||e.data?.type!=='hero-visibility')return;visible=Boolean(e.data.visible);sync();});
   if(media.matches)elapsed=2000;
   resize();sync();
   const character=person.querySelector('img');
-  const begin=()=>{if(ready)return;ready=true;last=0;sync();};
+  const begin=()=>{if(ready)return;ready=true;last=0;sync();notifyParent("shawon-hero-ready");};
+  function notifyParent(type){
+    try{window.frameElement?.dispatchEvent(new Event(type));}catch{}
+  }
+  window.shawonHeroTransition={
+    get ready(){return ready&&character.naturalWidth>0;},
+    get paused(){return paused;},
+    take(){
+      if(!ready||!character.naturalWidth||!currentPose)return null;
+      transferred=true;
+      cancelAnimationFrame(frame);frame=0;last=0;
+      person.style.visibility='hidden';web.style.visibility='hidden';
+      return {...currentPose};
+    },
+    release(){
+      transferred=false;
+      person.style.visibility='';web.style.visibility='';
+      sync();
+    }
+  };
   if(character.complete&&character.naturalWidth)begin();
   else {character.addEventListener('load',begin,{once:true});character.addEventListener('error',begin,{once:true});}
 })();
+
