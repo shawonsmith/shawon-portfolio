@@ -1,0 +1,20 @@
+Shawon Khan Portfolio - latest published source (2026-10-07)
+
+Run locally:
+1. Extract the ZIP.
+2. Open the Shawon-Portfolio folder in VS Code.
+3. Serve the dist folder with Live Server, or run:
+   python -m http.server 8000 --directory dist
+4. Open http://localhost:8000
+
+Deploy: upload all contents of dist to the web hosting root. No build required.
+
+Files:
+dist/index.html - full replica and scroll fix
+dist/hero.html - hero markup
+dist/hero.css - hero styling
+dist/hero.js - swing animation
+dist/assets and dist/_assets - local images, fonts, scripts and media
+source-assets - editable artwork sources and scripts
+
+Some original Canva runtime chunks and videos still load from the original website and require internet access. This is not a fully offline export. Older unused local assets remain included to preserve the current deployed source.

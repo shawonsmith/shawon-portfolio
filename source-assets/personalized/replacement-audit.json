@@ -1,0 +1,104 @@
+[
+  {
+    "original": "_assets/media/9acde296b5441b3af725d75be18fef46.png",
+    "replacement": "assets/characters/shawon-gesture-1350x2400-v2.png",
+    "references": 2,
+    "pose": "gesture"
+  },
+  {
+    "original": "_assets/media/d748f2086d2ebddc0277c1bdd5aabe21.png",
+    "replacement": "assets/characters/shawon-gesture-450x800-v2.png",
+    "references": 2,
+    "pose": "gesture"
+  },
+  {
+    "original": "_assets/media/411645adbc03e83bfe1516d98f1dd1f5.png",
+    "replacement": "assets/characters/shawon-gesture-900x1600-v2.png",
+    "references": 2,
+    "pose": "gesture"
+  },
+  {
+    "original": "_assets/media/2ada4b9fa69939432b8f0a5b4fae8e7c.png",
+    "replacement": "assets/characters/shawon-stand-1350x2400-v2.png",
+    "references": 2,
+    "pose": "stand"
+  },
+  {
+    "original": "_assets/media/2b73916145eb2ad4d262352214f73fde.png",
+    "replacement": "assets/characters/shawon-stand-450x800-v2.png",
+    "references": 2,
+    "pose": "stand"
+  },
+  {
+    "original": "_assets/media/d8934f73758dc38b65c6b755ec0f3119.png",
+    "replacement": "assets/characters/shawon-stand-900x1600-v2.png",
+    "references": 2,
+    "pose": "stand"
+  },
+  {
+    "original": "_assets/media/f1ed17d8ada83c7173efac5ba623ee7c.png",
+    "replacement": "assets/characters/shawon-walk-450x800-v2.png",
+    "references": 2,
+    "pose": "walk"
+  },
+  {
+    "original": "_assets/media/70e672201d5623ce593a12b29f819d9b.png",
+    "replacement": "assets/characters/shawon-walk-900x1600-v2.png",
+    "references": 2,
+    "pose": "walk"
+  },
+  {
+    "original": "_assets/media/7e873bc5abaeebab2e88e7c11fd68e2f.png",
+    "replacement": "assets/characters/shawon-walk-1350x2400-v2.png",
+    "references": 2,
+    "pose": "walk"
+  },
+  {
+    "original": "_assets/media/1028127888c9be2a1a723af513f12cde.png",
+    "replacement": "assets/characters/shawon-walk-450x800-v2.png",
+    "references": 2,
+    "pose": "walk"
+  },
+  {
+    "original": "_assets/media/8eb1de3ae0359e4b6cc9b4a1fee8e2fd.png",
+    "replacement": "assets/characters/shawon-walk-900x1600-v2.png",
+    "references": 2,
+    "pose": "walk"
+  },
+  {
+    "original": "_assets/media/ebfe7ae2ba5c8b03bd2df71ebb4660f4.png",
+    "replacement": "assets/characters/shawon-walk-1350x2400-v2.png",
+    "references": 2,
+    "pose": "walk"
+  },
+  {
+    "original": "_assets/media/2cd1438290f1d1f9317e4c164dfce073.png",
+    "replacement": "assets/characters/shawon-crouch-450x800-v2.png",
+    "references": 2,
+    "pose": "crouch"
+  },
+  {
+    "original": "_assets/media/1c3de5de87764f54c8df754df368b71e.png",
+    "replacement": "assets/characters/shawon-crouch-1350x2400-v2.png",
+    "references": 2,
+    "pose": "crouch"
+  },
+  {
+    "original": "_assets/media/b4ddcebf676bdeb1d7678b9631473c90.png",
+    "replacement": "assets/characters/shawon-crouch-900x1600-v2.png",
+    "references": 2,
+    "pose": "crouch"
+  },
+  {
+    "original": "_assets/media/f211f2973502f40f0d5b3b8e60b157aa.png",
+    "replacement": "assets/characters/shawon-guava-1536x1024-v2.png",
+    "references": 4,
+    "pose": "guava"
+  },
+  {
+    "original": "_assets/media/b0d841146d746f49aa1c8f5e77a2c4bb.png",
+    "replacement": "assets/characters/shawon-guava-800x533-v2.png",
+    "references": 2,
+    "pose": "guava"
+  }
+]

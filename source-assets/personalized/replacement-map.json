@@ -1,0 +1,29 @@
+{
+  "gesture": [
+    "9acde296b5441b3af725d75be18fef46.png",
+    "d748f2086d2ebddc0277c1bdd5aabe21.png",
+    "411645adbc03e83bfe1516d98f1dd1f5.png"
+  ],
+  "stand": [
+    "2ada4b9fa69939432b8f0a5b4fae8e7c.png",
+    "2b73916145eb2ad4d262352214f73fde.png",
+    "d8934f73758dc38b65c6b755ec0f3119.png"
+  ],
+  "walk": [
+    "f1ed17d8ada83c7173efac5ba623ee7c.png",
+    "70e672201d5623ce593a12b29f819d9b.png",
+    "7e873bc5abaeebab2e88e7c11fd68e2f.png",
+    "1028127888c9be2a1a723af513f12cde.png",
+    "8eb1de3ae0359e4b6cc9b4a1fee8e2fd.png",
+    "ebfe7ae2ba5c8b03bd2df71ebb4660f4.png"
+  ],
+  "crouch": [
+    "2cd1438290f1d1f9317e4c164dfce073.png",
+    "1c3de5de87764f54c8df754df368b71e.png",
+    "b4ddcebf676bdeb1d7678b9631473c90.png"
+  ],
+  "guava": [
+    "f211f2973502f40f0d5b3b8e60b157aa.png",
+    "b0d841146d746f49aa1c8f5e77a2c4bb.png"
+  ]
+}

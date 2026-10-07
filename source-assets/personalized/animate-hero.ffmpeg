@@ -1,0 +1,10 @@
+[0:v]scale=1296:730,format=rgba,crop=1280:720:x='8+5*sin(t*2*PI/12)':y='5+3*sin(t*2*PI/12)'[background];
+[1:v]scale=836:470,format=rgba,pad=1036:670:100:100:color=black@0,rotate='0.035*sin(t*2*PI/12)':ow=iw:oh=ih:c=none[person];
+[2:v]scale=1280:720,format=rgba,split=3[props1][props2][props3];
+[props1]crop=400:520:0:200,pad=460:580:30:30:color=black@0,rotate='0.025*sin(t*2*PI/6)':ow=iw:oh=ih:c=none[left];
+[props2]crop=430:520:850:200,pad=490:580:30:30:color=black@0,rotate='-0.025*sin(t*2*PI/6)':ow=iw:oh=ih:c=none[right];
+[props3]crop=400:200:200:0,pad=460:260:30:30:color=black@0,rotate='0.04*sin(t*2*PI/6)':ow=iw:oh=ih:c=none[top];
+[background][left]overlay=x='-30+4*sin(t*2*PI/6)':y='170+8*sin(t*2*PI/6)':format=auto[b1];
+[b1][right]overlay=x='820-4*sin(t*2*PI/6)':y='170-8*sin(t*2*PI/6)':format=auto[b2];
+[b2][top]overlay=x='170+5*sin(t*2*PI/6)':y='-30+6*sin(t*2*PI/6)':format=auto[b3];
+[b3][person]overlay=x='135+17*sin(t*2*PI/12)':y='70-15*sin(t*2*PI/6)':format=auto,format=yuv420p[out]
