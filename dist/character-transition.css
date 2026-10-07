@@ -207,3 +207,7 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }
 }
+
+/* Fit the hero to the visible viewport in landscape as well. */
+#shawon-hero-frame{min-height:0!important}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}

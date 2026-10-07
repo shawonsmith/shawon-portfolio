@@ -85,11 +85,10 @@
   let stopped = false;
   let mutationFrame = 0;
 
-  const load = img => new Promise((resolve) => {
+  const load = img => new Promise((resolve, reject) => {
     if (!img || (img.complete && img.naturalWidth)) return resolve();
     img.addEventListener('load', resolve, { once: true });
-    img.addEventListener('error', resolve, { once: true }); // proceed even if image fails
-    setTimeout(resolve, 1500); // safety fallback so transition never hangs
+    img.addEventListener('error', reject, { once: true });
   });
 
   function getBridge() {
@@ -101,8 +100,7 @@
       const candidates = [...root.querySelectorAll('section, div.rGeu6w, div[data-scroll-ready]')];
       about = candidates.find(el => /ABOUT\s+ME/i.test(el.textContent)) ||
               root.querySelector('section.rGeu6w') ||
-              root.querySelector('section') ||
-              root.firstElementChild;
+              root.querySelector('section');
       if (about) {
         observer.observe(about);
       }
@@ -121,10 +119,14 @@
     let targetLeft, targetTop, targetW, targetH;
 
     if (pic && pic.width > 20 && pic.height > 20) {
-      targetLeft = pic.left;
-      targetTop = pic.top;
-      targetW = pic.width;
-      targetH = pic.height;
+      const left = Math.max(box.left, pic.left);
+      const top = Math.max(box.top, pic.top);
+      const right = Math.min(box.right, pic.right);
+      const bottom = Math.min(box.bottom, pic.bottom);
+      targetH = Math.max(1, Math.min(bottom-top, (right-left)*1600/900, innerHeight*.78));
+      targetW = targetH*900/1600;
+      targetLeft = left + (right-left-targetW)/2;
+      targetTop = bottom-targetH;
     } else {
       const isMobile = window.innerWidth < 850;
       if (isMobile) {
@@ -194,7 +196,7 @@
         actor.style.width = box.w + 'px';
         actor.style.height = box.h + 'px';
         actor.style.transform = `translate3d(${box.x}px,${box.y}px,0)`;
-        flight.style.opacity = crouch.style.opacity = impact.style.opacity = '0';
+        flight.style.opacity = crouch.style.opacity = impact.style.opacity = shockwave.style.opacity = '0';
         greeting.style.opacity = '1';
         greeting.style.transform = 'none';
         greeting.style.setProperty("--wave-angle", "0deg");
