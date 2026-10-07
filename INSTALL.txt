@@ -1,0 +1,47 @@
+SHAWON PORTFOLIO — HERO TO ABOUT TRANSITION
+
+Copy this ZIP's dist folder into your existing shawon-portfolio checkout.
+Merge folders and replace matching files. Do not delete your existing dist folder.
+The ZIP contains complete replacement files, not a standalone copy of the entire site.
+No npm package or build step is needed. Serve dist using your existing hosting or Live Server.
+
+Included:
+  dist/index.html — existing full page, with two transition includes and hero cache version bump
+  dist/hero.html — updated hero script version
+  dist/hero.js — original swing plus same-origin character handoff API
+  dist/hero.css — unchanged original hero styling
+  dist/character-transition.css — overlay, comic bubbles and arm clipping
+  dist/character-transition.js — native RAF scroll, landing, greeting and reverse controller
+  dist/assets/characters/shawon-wave-v3.png — new waving sprite; original gesture asset preserved
+
+Keep these existing assets:
+  dist/assets/characters/shawon-crouch-900x1600-v2.png
+  dist/assets/spidey-hero/character-side-hand.png
+  All other existing assets, fonts and Canva runtime files.
+
+The file named shawon-gesture-900x1600-v2.png in main was inspected: it is identical to
+shawon-stand-900x1600-v2.png and has both arms down. It is NOT a wave pose.
+A separate wave-v3 sprite is supplied so no original artwork is overwritten.
+The waving hand is isolated with CSS clipping and rotates gently around the wrist.
+
+Behavior:
+- Existing swing freezes at its actual current position when the page starts the drop.
+- Parent document renders the flight sprite outside the iframe boundary.
+- The first ABOUT ME section is found in the existing Canva-rendered section markup.
+- The original walking character in that section is hidden only while this effect is ready.
+- Near the destination the flight crossfades into the existing crouch sprite.
+- Landing holds 350ms with a small bounce and THUD!, then crossfades to the wave sprite.
+- Greeting: Hey there! Welcome to my world.
+- Reverse scrolling cancels greeting and moves the sprite back into the hero.
+- Image errors leave the original page intact.
+- Reduced motion uses a static greeting; the hero's pause button also disables the flight.
+- No navigation bar, no new About section, no copy changes, no scroll interception.
+
+Validation completed:
+- Node syntax checks for both JavaScript files.
+- Simulated DOM/RAF tests: landing, delayed greeting, reverse, replay, offscreen hiding,
+  reduced motion, and animation stopping while idle.
+- Original index markup/bootstrap preserved except the two asset includes and hero version.
+- Actual live browser visual QA has NOT been performed. Check desktop and mobile after copying.
+
+This is a code delivery. No GitHub commit, PR, merge, or live deployment was performed.
